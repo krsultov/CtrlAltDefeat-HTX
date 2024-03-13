@@ -102,7 +102,6 @@ dist
 
 # vuepress v2.x temp and cache directory
 .temp
-.cache
 
 # Docusaurus cache and generated files
 .docusaurus
@@ -260,3 +259,4 @@ fabric.properties
 # Ignore all local history of files
 .history
 .ionide
+.idea
