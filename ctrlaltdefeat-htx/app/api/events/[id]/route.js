@@ -12,7 +12,7 @@ export async function GET(req, {params}){
     }
 }
 
-// Update Event
+// Update Event by ID
 export async function PUT(req, {params}){
     try{
         const {id} = params
@@ -24,6 +24,18 @@ export async function PUT(req, {params}){
         })
 
         return NextResponse.json({message: "Event updated successfully"}, {status:200})
+    } catch (e) {
+        return NextResponse.json({message: "Error", e}, {status:500})
+    }
+}
+
+// Delete Event by ID
+export async function DELETE(req, {params}){
+    try{
+        const {id} = params
+        await Event.findByIdAndDelete(id)
+
+        return NextResponse.json({message: "Event deleted successfully"}, {status:200})
     } catch (e) {
         return NextResponse.json({message: "Error", e}, {status:500})
     }
