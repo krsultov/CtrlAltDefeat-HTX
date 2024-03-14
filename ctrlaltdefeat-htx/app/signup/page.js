@@ -1,4 +1,5 @@
  "use client"
+import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -63,12 +64,13 @@ const SignUpForm = () => {
           {errors.confirmPassword && <p className="text-red-500 text-xs italic">{errors.confirmPassword.message}</p>}
         </div>
         <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Sign Up
-          </button>
+            <button type="submit"
+                className="w-full text-white bg-cyan-500 hover:bg-cyan-600 font-medium rouded-lg text-sm px-5 py-2.5 text-center"> Sign Up
+            </button>
+        </div>
+        <div className='flex gap-2'>
+            <h className="text-slate-500">Have an account?</h>
+            <Link href="/login" className="text-cyan-500 font-bold">Log In</Link>
         </div>
       </form>
     </div>
