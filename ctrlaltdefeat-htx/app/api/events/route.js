@@ -8,10 +8,10 @@ export async function POST(req) {
         const ticketData = body.formData
         await Event.create(ticketData)
 
-        return NextResponse.json({message: "Event Created Successfully"}, {status: 201});
+        return NextResponse.json({message: "Event Created Successfully"}, {status: 201})
     } catch (e) {
         console.log(e)
-        return NextResponse.json({message: "Error", e}, {status: 500});
+        return NextResponse.json({message: "Error", e}, {status: 500})
     }
 }
 
@@ -19,9 +19,9 @@ export async function POST(req) {
 export async function GET(req) {
     try {
         const events = await Event.find();
-        return NextResponse.json({events}, {status: 200});
+        return NextResponse.json({events}, {status: 200})
     } catch (e) {
         console.log(e)
-        return NextResponse.json({message: "Error", e}, {status: 500});
+        return NextResponse.json({message: "Error", e}, {status: 500})
     }
 }
