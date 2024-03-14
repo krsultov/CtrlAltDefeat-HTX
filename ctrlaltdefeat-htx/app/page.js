@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       <div className="flex align-center justify-center gap-5">
         <LinkButton link="#login" text="Log in" color="bg-primary" colorHover="hover:bg-primaryDark"/>
-        <LinkButton link="#signin" text="Sign in" color="bg-secondary" colorHover="hover:bg-secondaryDark"/>
+        <LinkButton link="#signin" text="Sign up" color="bg-secondary" colorHover="hover:bg-secondaryDark"/>
       </div>
       </ContentWrapper>
     </div>
