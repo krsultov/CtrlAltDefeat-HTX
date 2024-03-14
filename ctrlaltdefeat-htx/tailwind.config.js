@@ -10,10 +10,12 @@ module.exports = {
       backgroundImage: {
       },
       colors: {
-        primary:"#53C7F0",
-        secondary:"#FAF2C3",
-        primaryDark:"#1D97C1",
-        secondaryDark:"#F6E4AD",
+        primary:"#CBF3F0",
+        secondary:"#FFBF69",
+        primaryDark:"#2EC4B6",
+        secondaryDark:"#FF9F1C",
+        bgPrimary: "#53C7F0",
+        bgSecondary: "#FAF2C3",
       }
     },
   },
