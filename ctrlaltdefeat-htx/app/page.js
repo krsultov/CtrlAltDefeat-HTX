@@ -4,7 +4,7 @@ import LinkButton from "./(components)/LinkButton";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-7xl font-">Name</h1>
         <p>Text entrance</p>
@@ -13,6 +13,6 @@ export default function Home() {
         <LinkButton link="#login" text="Log in"/>
         <LinkButton link="#signin" text="Sign in"/>
       </div>
-    </>
+    </div>
   );
 }
