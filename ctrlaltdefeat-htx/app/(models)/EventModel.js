@@ -20,6 +20,8 @@ const eventSchema = new Schema(
         participants: Array, // All participants
         beforeImage: String, // Image before cleaning (URL)
         afterImage: String, // Image after cleaning (URL)
+        pointValue: Number, // Amount of points the event gives
+        status: String, // New, Archived
     },
     {
         timestamps: true
