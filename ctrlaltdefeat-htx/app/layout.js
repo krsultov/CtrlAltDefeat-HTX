@@ -15,12 +15,14 @@ export default function RootLayout({children}) {
         <html lang="en">
         <body className={inter.className}>
         <div
-            className="flex flex-col h-screen max-h-screen bg-gradient-to-br from-bgPrimary to-bgSecondary bg-opacity-60">
+            className="flex flex-col h-screen max-h-screen bg-gradient-to-br from-bgPrimary to-bgSecondary relative">
             <Navigation/>
             <div className="flex-grow overflow-y-auto bg-accent-1 text-default-text">
                 {children}
             </div>
         </div>
+
+
         </body>
         </html>
     );
