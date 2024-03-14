@@ -12,8 +12,8 @@ export default function Home() {
         <p>Text entrance</p>
       </div>
       <div className="flex align-center justify-center gap-5">
-        <LinkButton link="#login" text="Log in"/>
-        <LinkButton link="#signin" text="Sign in"/>
+        <LinkButton link="#login" text="Log in" color="bg-primary" colorHover="hover:bg-primaryDark"/>
+        <LinkButton link="#signin" text="Sign in" color="bg-secondary" colorHover="hover:bg-secondaryDark"/>
       </div>
       </ContentWrapper>
     </div>
