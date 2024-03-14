@@ -10,7 +10,7 @@ const Navigation = () => {
                 </Link>
             </div>
             <div className="flex items-center space-x-4">
-                <Link href="/#events">
+                <Link href="/events">
                     Events
                 </Link>
                 <Link href="/#reports">
