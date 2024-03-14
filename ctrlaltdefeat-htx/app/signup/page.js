@@ -1,11 +1,16 @@
  "use client"
 import Link from 'next/link';
 import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const SignUp = () => {
+  const [info, setInfo]=useState([]);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data); // Handle form submission
+  function InfoHandler(event){
+    setInfo({...info, [event.target.id]: event.target.value})
+  }
 
   return (
     <div className="flex justify-center items-center h-full w-full md:max-w-md mx-auto">
@@ -33,7 +38,7 @@ const SignUp = () => {
             type="email"
             id="email"
             placeholder="Enter your email"
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`} onChange={InfoHandler}
           />
           {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
         </div>
@@ -46,7 +51,7 @@ const SignUp = () => {
             type="password"
             id="password"
             placeholder="Enter your password"
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-500' : ''}`}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-500' : ''}`} onChange={InfoHandler}
           />
           {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message}</p>}
         </div>
@@ -55,11 +60,11 @@ const SignUp = () => {
             Confirm Password
           </label>
           <input
-            {...register("confirmPassword", { required: 'Please confirm your password', validate: value => value === password || 'The passwords do not match' })}
+            {...register("confirmPassword", { required: 'Please confirm your password', validate: value => info.confirmPassword === info.password || 'The passwords do not match' })}
             type="password"
             id="confirmPassword"
             placeholder="Confirm your password"
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.confirmPassword ? 'border-red-500' : ''}`}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.confirmPassword ? 'border-red-500' : ''}`} onChange={InfoHandler}
           />
           {errors.confirmPassword && <p className="text-red-500 text-xs italic">{errors.confirmPassword.message}</p>}
         </div>
