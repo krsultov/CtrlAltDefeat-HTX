@@ -14,3 +14,14 @@ export async function POST(req) {
         return NextResponse.json({message: "Error", e}, {status: 500});
     }
 }
+
+// Fetch Events
+export async function GET(req) {
+    try {
+        const events = await Event.find();
+        return NextResponse.json({events}, {status: 200});
+    } catch (e) {
+        console.log(e)
+        return NextResponse.json({message: "Error", e}, {status: 500});
+    }
+}
