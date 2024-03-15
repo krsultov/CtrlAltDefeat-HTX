@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import UploadFile from "@/app/(components)/UpldeFiles";
 
 function Form() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -111,6 +112,14 @@ function Form() {
               onChange={handleChange}
             />
           </div>
+            <label className="block mb-1 font-medium">
+              Import Image
+            </label>
+          <UploadFile
+                //onChange={(newFile) => {
+                //  postFile(newFile, 1, 0);
+                //}}
+              />
           <button
             type="submit"
             className="w-full bg-primaryDark border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg font-bold block p-2.5"
