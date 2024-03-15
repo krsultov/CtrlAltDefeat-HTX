@@ -8,7 +8,10 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-    await dbConnect();
+    await mongoose.connect(process.env.MONGODB_URI).then(r => {console.log('Connected to MongoDB');
+    }).catch((e) => {
+        console.log(e);
+    });
 
     const form = new formidable.IncomingForm();
     form.uploadDir = './public/uploads';
