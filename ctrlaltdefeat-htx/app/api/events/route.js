@@ -5,8 +5,8 @@ import {NextResponse} from "next/server";
 export async function POST(req) {
     try {
         const body = await req.json()
-        const ticketData = body.formData
-        await Event.create(ticketData)
+        const eventData = body.formData
+        await Event.create(eventData)
 
         return NextResponse.json({message: "Event Created Successfully"}, {status: 201})
     } catch (e) {
