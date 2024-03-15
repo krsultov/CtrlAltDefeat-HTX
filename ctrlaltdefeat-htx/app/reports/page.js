@@ -1,37 +1,36 @@
-import Card from "../(components)/Card";
 import React from 'react';
+import ReportCard from "@/app/(components)/ReportCard";
 
-const getEvents = async () => {
+const getReports = async () => {
     try {
-        const res = await fetch("http://localhost:3000/api/events", {
+        const res = await fetch("http://localhost:3000/api/reports", {
             cache: "no-store",
         })
 
         return res.json()
     } catch (e) {
-        console.log("Failed to fetch events", e);
+        console.log("Failed to fetch reports", e);
     }
 }
 
-const Events = async () => {
+const Reports = async () => {
 
-    const {events} = await getEvents()
+    const {reports} = await getReports()
 
     const uniqueStatuses = [
-        ...new Set(events?.map(({status}) => status))
+        ...new Set(reports?.map(({status}) => status))
     ]
 
     return (
         <div className="flex gap-3 lg:flex-wrap p-8">
-
             <div className="p-5">
                 <div>
-                    {events && uniqueStatuses?.map((uniqueStatus, statusIndex) => (
+                    {reports && uniqueStatuses?.map((uniqueStatus, statusIndex) => (
                         <div key={statusIndex} className="mb-4">
                             <h2>{uniqueStatus}</h2>
                             <div className="lg:grid grid-cols-2 xl:grid-cols-4">
-                                {events.filter((event) => event.category === uniqueStatus).map((filteredEvent, _index) => (
-                                    <Card id={_index} key={_index} event={filteredEvent}/>
+                                {reports.filter((report) => report.category === uniqueStatus).map((filteredReport, _index) => (
+                                    <ReportCard id={_index} key={_index} report={filteredReport}/>
                                 ))}
                             </div>
 
@@ -43,4 +42,4 @@ const Events = async () => {
     );
 }
 
-export default Events;
+export default Reports;
