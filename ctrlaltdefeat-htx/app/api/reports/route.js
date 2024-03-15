@@ -1,4 +1,4 @@
-import Report from "@/app/(models)/EventModel";
+import Report from "@/app/(models)/ReportModel";
 import {NextResponse} from "next/server";
 
 // Create new report
