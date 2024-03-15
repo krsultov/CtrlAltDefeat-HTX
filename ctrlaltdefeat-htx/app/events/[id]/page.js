@@ -9,7 +9,7 @@ export default function EventDetails({params}) {
     const {id} = params
     const getEventById = async (eventId) => {
 
-        const res = await fetch(`http://localhost:3000/api/events/${eventId}`, {
+        const res = await fetch(`/api/events/${eventId}`, {
             method: "GET",
             cache: "no-store"
         })
