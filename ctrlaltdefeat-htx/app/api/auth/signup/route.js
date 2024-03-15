@@ -14,6 +14,6 @@ export async function POST(req) {
         console.log(`Successfully created User ${newUser._id}`);
         return NextResponse.json({message: `Successfully created User ${newUser._id}`}, {status: 201})
     } catch (e) {
-        return NextResponse.json({message: e.message, success: false, }, {status: 500})
+        return NextResponse.json({message: e.message, success: false }, {status: 500})
     }
 }
