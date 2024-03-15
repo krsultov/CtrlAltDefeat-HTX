@@ -6,19 +6,18 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import UploadFile from "@/app/(components)/UpldeFiles";
 import moment from "moment";
-
-
+import {useRouter} from "next/navigation";
 
 
 function Form() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentFile, setCurrentFile] = useState('');
   const [formData, setFormData] = useState([]);
+  const router = useRouter()
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    
-    formData.append("date", moment(date).format("MMMM Do YYYY h:mm:ss"));
+    setFormData({ ...formData, date: moment(date).format("MMMM Do YYYY h:mm:ss") })
   };
 
   const {register, handleSubmit, formState: {errors}} = useForm();
@@ -48,7 +47,7 @@ function Form() {
     const file = event.target.files[0];
     try {
       const base64 = await imageToBase64(file);
-      formData.append('beforeImage', base64);
+      setFormData({...formData, beforeImage: base64})
     } catch (error) {
       console.error('Error converting image to base64:', error);
     }
@@ -59,8 +58,21 @@ function Form() {
   }
 
   const onSub = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+
+    console.log(formData)
+    try {
+      const res = await fetch('/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({formData}),
+      });
+      const data = await res.json();
+      router.push('/events')
+    } catch (e) {
+      throw new Error(e)
+    }
   };
   
 
