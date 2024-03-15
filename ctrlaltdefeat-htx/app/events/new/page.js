@@ -4,25 +4,65 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import UploadFile from "@/app/(components)/UpldeFiles";
+import moment from "moment";
+
+
+
 
 function Form() {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [currentFile, setCurrentFile] = useState('');
+  const [formData, setFormData] = useState([]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    
+    formData.append("date", moment(date).format("MMMM Do YYYY h:mm:ss"));
   };
 
-  const [formData, setFormData] = useState({});
   const {register, handleSubmit, formState: {errors}} = useForm();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  function imageToBase64(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        reject("No file provided");
+        return;
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+
+  const handleFileInputChange = async (event) => {
+    const file = event.target.files[0];
+    try {
+      const base64 = await imageToBase64(file);
+      formData.append('beforeImage', base64);
+    } catch (error) {
+      console.error('Error converting image to base64:', error);
+    }
+  };
+
+  const createEvent = () => {
+
+  }
+
   const onSub = async (e) => {
     e.preventDefault();
     console.log(formData);
   };
+  
 
   return (
     <div className="flex justify-center items-center w-full md:max-w-md mx-auto py-20">
@@ -73,44 +113,29 @@ function Form() {
               Date
             </label>
             <DatePicker
-              {...register("date", {required:"Date is required"})}
-              id="date"
               selected={selectedDate}
               onChange={handleDateChange}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              timeCaption="Time"
               wrapperClassName="w-full"
-              className={`flex w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 ${errors.date ? 'border-red-500' : 'border-gray-300'}`}
-              dateFormat="MM/dd/yyyy"
+              className={`flex w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 `}
               placeholderText="Select a date"
               
             />
-            {errors.location && <p className="text-red-500 text-xs italic">{errors.location.message}</p>}
+            
           </div>
-          <div>
             <label className="block mb-1 font-medium">
-              Required participants
+              Import Image
             </label>
-            <input
-              type="number"
-              min="0"
-              id="reqParticipants"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 block w-full p-2.5"
-              placeholder="Number"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label className="block mb-1 font-medium">
-              Max participants
-            </label>
-            <input
-              type="number"
-              min="0"
-              id="maxParticipants"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 block w-full p-2.5"
-              placeholder="Number"
-              onChange={handleChange}
-            />
-          </div>
+          <UploadFile
+                //onChange={(newFile) => {
+                //  postFile(newFile, 1, 0);
+                //}}
+                onChange={(e) => handleFileInputChange(e)}
+              />
           <button
             type="submit"
             className="w-full bg-primaryDark border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg font-bold block p-2.5"
