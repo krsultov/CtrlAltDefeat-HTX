@@ -7,13 +7,15 @@ import { useForm } from "react-hook-form";
 import UploadFile from "@/app/(components)/UpldeFiles";
 import moment from "moment";
 import {useRouter} from "next/navigation";
+import {useSelector} from "react-redux";
 
 
 function Form() {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [currentFile, setCurrentFile] = useState('');
+  const [currentFile, setCurrentFile] = useState(null);
   const [formData, setFormData] = useState([]);
   const router = useRouter()
+  const {currentUser} = useSelector(state => state.user)
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -45,6 +47,7 @@ function Form() {
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
+    setCurrentFile(file)
     try {
       const base64 = await imageToBase64(file);
       setFormData({...formData, beforeImage: base64})
@@ -53,13 +56,9 @@ function Form() {
     }
   };
 
-  const createEvent = () => {
-
-  }
-
   const onSub = async (e) => {
-
-    console.log(formData)
+    setFormData({...formData, organizer: currentUser.userContent._id})
+    setFormData({...formData, status: "new"})
     try {
       const res = await fetch('/api/events', {
         method: 'POST',
@@ -142,12 +141,8 @@ function Form() {
             <label className="block mb-1 font-medium">
               Import Image
             </label>
-          <UploadFile
-                //onChange={(newFile) => {
-                //  postFile(newFile, 1, 0);
-                //}}
-                onChange={(e) => handleFileInputChange(e)}
-              />
+          <UploadFile onChange={(e) => handleFileInputChange(e)}/>
+          {currentFile && <span>{currentFile.name}</span>}
           <button
             type="submit"
             className="w-full bg-primaryDark border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg font-bold block p-2.5"
