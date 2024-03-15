@@ -15,3 +15,13 @@ export async function POST(req) {
     }
 }
 
+// Fetch all reports
+export async function GET(req) {
+    try {
+        const reports = await Report.find();
+        return NextResponse.json({reports}, {status: 200})
+    } catch (e) {
+        console.log(e)
+        return NextResponse.json({message: "Error", e}, {status: 500})
+    }
+}
