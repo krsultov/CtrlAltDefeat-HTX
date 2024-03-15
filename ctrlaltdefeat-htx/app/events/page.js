@@ -9,7 +9,7 @@ const Events = () => {
 
     const getEvents = async () => {
         try {
-            const res = await fetch("http://localhost:3000/api/events", {
+            const res = await fetch("/api/events", {
                 method: "GET",
                 cache: "no-store",
             })
