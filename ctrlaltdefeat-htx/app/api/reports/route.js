@@ -1,25 +1,25 @@
-import Event from "@/app/(models)/EventModel";
+import Report from "@/app/(models)/ReportModel";
 import {NextResponse} from "next/server";
 
-//Create New Event
+// Create new report
 export async function POST(req) {
     try {
         const body = await req.json()
-        const eventData = body.formData
-        await Event.create(eventData)
+        const reportData = body.formData
+        await Report.create(reportData)
 
-        return NextResponse.json({message: "Event Created Successfully"}, {status: 201})
+        return NextResponse.json({message: "Report Created Successfully"}, {status: 201})
     } catch (e) {
         console.log(e)
         return NextResponse.json({message: "Error", e}, {status: 500})
     }
 }
 
-// Fetch Events
+// Fetch all reports
 export async function GET(req) {
     try {
-        const events = await Event.find();
-        return NextResponse.json({events}, {status: 200})
+        const reports = await Report.find();
+        return NextResponse.json({reports}, {status: 200})
     } catch (e) {
         console.log(e)
         return NextResponse.json({message: "Error", e}, {status: 500})

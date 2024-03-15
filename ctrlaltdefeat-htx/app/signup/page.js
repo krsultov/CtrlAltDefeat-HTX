@@ -2,14 +2,46 @@
 import Link from 'next/link';
 import React from 'react';
 import {useState} from 'react';
-import {useForm} from 'react-hook-form';
+import {set, useForm} from 'react-hook-form';
+import {useRouter} from "next/navigation";
 
 const SignUp = () => {
-    const [info, setInfo] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const router = useRouter()
+    const [formData, setFormData] = useState({});
+
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const onSubmit = data => console.log(data); // Handle form submission
-    function InfoHandler(event) {
-        setInfo({...info, [event.target.id]: event.target.value})
+
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.id]: e.target.value});
+    };
+
+    const onSubmit = async () => {
+        try {
+            setLoading(true);
+            setError(false);
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await res.json();
+
+            setLoading(false);
+
+            if (data.success === false) {
+                setError(true);
+                return;
+            }
+            router.push('/login')
+        } catch (e) {
+            setLoading(false);
+            setError(true);
+        }
     }
 
     return (
@@ -26,6 +58,7 @@ const SignUp = () => {
                         type="text"
                         id="username"
                         placeholder="johndoe123"
+                        onChange={handleChange}
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.username && <p className="text-red-500 text-xs italic">{errors.username.message}</p>}
@@ -39,11 +72,11 @@ const SignUp = () => {
                             required: 'Email is required',
                             pattern: {value: /^\S+@\S+$/i, message: 'Invalid email address'}
                         })}
+                        onChange={handleChange}
                         type="email"
                         id="email"
                         placeholder="jonh.doe@email.com"
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
-                        onChange={InfoHandler}
                     />
                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
                 </div>
@@ -59,8 +92,9 @@ const SignUp = () => {
                         type="password"
                         id="password"
                         placeholder="Password..."
+                        onChange={handleChange}
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-                        onChange={InfoHandler}
+
                     />
                     {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message}</p>}
                 </div>
@@ -71,19 +105,20 @@ const SignUp = () => {
                     <input
                         {...register("confirmPassword", {
                             required: 'Please confirm your password',
-                            validate: value => info.confirmPassword === info.password || 'The passwords do not match'
+                            validate: value => value === formData.password || 'The passwords do not match'
                         })}
                         type="password"
                         id="confirmPassword"
                         placeholder="Confirm your password"
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
-                        onChange={InfoHandler}
+
                     />
                     {errors.confirmPassword &&
                         <p className="text-red-500 text-xs italic">{errors.confirmPassword.message}</p>}
                 </div>
                 <div className="flex items-center justify-between ">
                     <button type="submit"
+                            disabled={loading}
                             className="mt-5 w-full focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 bg-primaryDark border text-gray-900 text-sm rounded-lg font-bold block p-2.5"> Sign
                         Up
                     </button>
@@ -92,6 +127,8 @@ const SignUp = () => {
                     <h2 className="text-slate-500">Have an account?</h2>
                     <Link href="/login" className="text-cyan-500 font-bold">Log In</Link>
                 </div>
+
+                <p className="text-red-600">{error ? error.message || 'Something went wrong!' : ""}</p>
             </form>
         </div>
     );
