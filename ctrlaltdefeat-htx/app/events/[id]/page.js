@@ -42,8 +42,8 @@ export default function EventDetails({params}) {
                 </button>
                 <div className="space-x-2 flex">
                     <p className="space-x-2 py-0.5">Participants: </p>
-                    {event.participants.map((participant) => (
-                        <div>
+                    {event.participants.map((participant, _index) => (
+                        <div key={_index}>
                             <a className="space-x-2 py-0.5">{participant}</a>
                         </div>
                     ))}
