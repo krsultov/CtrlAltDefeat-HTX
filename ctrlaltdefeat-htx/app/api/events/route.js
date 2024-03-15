@@ -1,13 +1,15 @@
 import Event from "@/app/(models)/EventModel";
 import {NextResponse} from "next/server";
+import Events from "@/app/events/page";
 
 //Create New Event
 export async function POST(req) {
     try {
         const body = await req.json()
         const eventData = body.formData
-        await Event.create(eventData)
-
+        const {title,description,location,date,organizer,beforeImage} = eventData
+        const newEvent = new Event({title,description,location,date,organizer,beforeImage,pointValue: 10})
+        await newEvent.save()
         return NextResponse.json({message: "Event Created Successfully"}, {status: 201})
     } catch (e) {
         console.log(e)

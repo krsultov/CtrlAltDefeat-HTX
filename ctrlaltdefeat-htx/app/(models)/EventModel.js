@@ -12,16 +12,18 @@ const eventSchema = new Schema(
         title: String, //Event title
         description: String, //Event description
         location: String, //Event location
-        date: Date, // Event date
-        reqParticipants: Number, // minimum number of participants
-        maxParticipants: Number, // maximum number of participants
+        date: String, // Event date
         organizer: String, // ID of organizer
-        moderator: String, // ID of overlooking moderator
         participants: Array, // All participants
-        beforeImage: String, // Image before cleaning (URL)
-        afterImage: String, // Image after cleaning (URL)
+        beforeImage: {
+            type: String, // Image before cleaning (URL)
+            default: "https://i0.wp.com/sunrisedaycamp.org/wp-content/uploads/2020/10/placeholder.png",
+        },
         pointValue: Number, // Amount of points the event gives
-        status: String, // New, Archived
+        status: {
+            type: String,
+            default: "new"
+        }// New, Archived
     },
     {
         timestamps: true

@@ -8,7 +8,7 @@ export default function Home() {
                     <div>
                         <h1 className="text-6xl text-bgSecondary font-bold mb-10">Baywatch</h1>
                         <p className="text-xl sm:text-xl mb-6">
-                            <b>Tired of seeing trash in your favorite places? We are too!</b> That's why we created this
+                            <b>Tired of seeing trash in your favorite places? We are too!</b> That&apos;s why we created this
                             app
                             – to empower everyday people to take action for a greener planet.</p>
                     </div>
@@ -48,8 +48,8 @@ export default function Home() {
                 </div>
                 <div className="container mx-auto px-4 py-12">
                     <div className="text-center">
-                        <p className="text-xl italic mb-4">"The website made it so easy to report an oil spill. I feel
-                            like I made a difference."</p>
+                        <p className="text-xl italic mb-4">&quot;The website made it so easy to report an oil spill. I feel
+                            like I made a difference.&quot;</p>
                         <p className="font-medium">- Sarah J.</p>
                     </div>
                 </div>

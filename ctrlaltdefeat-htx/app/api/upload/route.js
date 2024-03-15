@@ -1,11 +1,6 @@
 import formidable from 'formidable';
 import Image from '@/app/(models)/ImageModel';
 
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
 
 export default async function handler(req, res) {
     await mongoose.connect(process.env.MONGODB_URI).then(r => {console.log('Connected to MongoDB');

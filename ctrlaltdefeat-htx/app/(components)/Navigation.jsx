@@ -22,7 +22,7 @@ const Navigation = () => {
                 <Link href="/events">
                     Events
                 </Link>
-                <Link href="/#reports">
+                <Link href="/reports">
                     Reports
                 </Link>
                 <Link href={"/profile"}>
