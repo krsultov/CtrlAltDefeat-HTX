@@ -17,9 +17,9 @@ export default async function handler(req, res) {
     form.uploadDir = './public/uploads';
     form.keepExtensions = true;
 
-    form.parse(req, async (err, fields, files) => {
+    await form.parse(req, async (err, fields, files) => {
         if (err) {
-            res.status(500).json({ error: 'Something went wrong' });
+            res.status(500).json({error: 'Something went wrong'});
             return;
         }
 
@@ -31,9 +31,9 @@ export default async function handler(req, res) {
 
         try {
             await image.save();
-            res.status(201).json({ success: true, message: 'Image uploaded successfully' });
+            res.status(201).json({success: true, message: 'Image uploaded successfully'});
         } catch (error) {
-            res.status(500).json({ error: 'Failed to upload image' });
+            res.status(500).json({error: 'Failed to upload image'});
         }
     });
 }
