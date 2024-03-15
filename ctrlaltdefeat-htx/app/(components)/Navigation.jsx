@@ -1,12 +1,15 @@
 "use client"
 import React from 'react';
 import Link from "next/link";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { signOut } from '@/app/(redux)/user/userSlice'
+
 import Image from "next/image";
 
 const Navigation = () => {
 
     const {currentUser} = useSelector(state => state.user)
+    const dispatch = useDispatch()
 
     return (
         <nav className="flex justify-between bg-primary p-4 px-8">
@@ -22,12 +25,12 @@ const Navigation = () => {
                 <Link href="/#reports">
                     Reports
                 </Link>
-
-                <Link href='/login'>
+                <Link href={"/profile"}>
                     {currentUser ? (
                         <div className="flex items-center space-x-2 ml-5">
                             <h1>{currentUser && currentUser.userContent.username}</h1>
-                            <div className="h-10 w-10 rounded-full overflow-hidden mr-6 border-2 border-emerald-500/50">
+                            <div
+                                className="h-10 w-10 rounded-full overflow-hidden mr-6 border-2 border-emerald-500/50">
                                 <img src={currentUser.userContent.profilePicture} alt="Profile"/>
                             </div>
                         </div>
