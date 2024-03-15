@@ -2,15 +2,13 @@
 import Link from 'next/link';
 import React from 'react';
 import {useState} from 'react';
-import {useForm} from 'react-hook-form';
+import {set, useForm} from 'react-hook-form';
 
 const SignUp = () => {
-    const [info, setInfo] = useState([]);
+    const [password, setPassword] = useState("");
+
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const onSubmit = data => console.log(data); // Handle form submission
-    function InfoHandler(event) {
-        setInfo({...info, [event.target.id]: event.target.value})
-    }
+    const onSubmit = data => {console.log(data);} // Handle form submission
 
     return (
         <div className="flex justify-center items-center h-full w-full md:max-w-md mx-auto">
@@ -43,7 +41,6 @@ const SignUp = () => {
                         id="email"
                         placeholder="jonh.doe@email.com"
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
-                        onChange={InfoHandler}
                     />
                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email.message}</p>}
                 </div>
@@ -60,7 +57,7 @@ const SignUp = () => {
                         id="password"
                         placeholder="Password..."
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-                        onChange={InfoHandler}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message}</p>}
                 </div>
@@ -71,13 +68,13 @@ const SignUp = () => {
                     <input
                         {...register("confirmPassword", {
                             required: 'Please confirm your password',
-                            validate: value => info.confirmPassword === info.password || 'The passwords do not match'
+                            validate: value => value === password || 'The passwords do not match'
                         })}
                         type="password"
                         id="confirmPassword"
                         placeholder="Confirm your password"
                         className={`bg-gray-50 border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
-                        onChange={InfoHandler}
+                        
                     />
                     {errors.confirmPassword &&
                         <p className="text-red-500 text-xs italic">{errors.confirmPassword.message}</p>}
