@@ -1,8 +1,8 @@
 import {Inter} from "next/font/google";
 import "./globals.css";
 import Navigation from "@/app/(components)/Navigation";
-import Footer from "@/app/(components)/Footer";
 import Background from "@/app/(components)/Background";
+import {Providers} from "@/app/(redux)/provider";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -17,11 +17,13 @@ export default function RootLayout({children}) {
         <body className={inter.className}>
         <div
             className="flex flex-col h-screen max-h-screen ">
-            <Background/>
-            <Navigation/>
-            <div className="flex-grow overflow-y-auto bg-accent-1 text-default-text">
-                {children}
-            </div>
+            <Providers>
+                <Background/>
+                <Navigation/>
+                <div className="flex-grow overflow-y-auto bg-accent-1 text-default-text">
+                    {children}
+                </div>
+            </Providers>
         </div>
 
 
