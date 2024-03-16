@@ -24,6 +24,8 @@ function RForm() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+
+
   function imageToBase64(file) {
     return new Promise((resolve, reject) => {
       if (!file) {
@@ -54,7 +56,6 @@ function RForm() {
 
   const onSub = async (e) => {
     setFormData({ ...formData, date: moment().format("MMMM Do YYYY h:mm:ss") })
-    setFormData({...formData, organizer: currentUser.userContent._id})
     setFormData({...formData, status: "new"})
     try {
       const res = await fetch('/api/reports', {
