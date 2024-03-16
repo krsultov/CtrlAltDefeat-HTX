@@ -34,6 +34,7 @@ const Events = () => {
     }
 
     return events && (
+
         <div className="flex gap-3 lg:flex-wrap p-8">
 
             <div className="p-5 w-full">
