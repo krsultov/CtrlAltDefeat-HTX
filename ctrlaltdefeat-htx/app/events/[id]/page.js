@@ -80,7 +80,7 @@ export default function EventDetails({params}) {
                         </div>
                         {
                             event.organizer === currentUser.userContent._id &&
-                            <QRCodeComponent url={`${window.location.host}/handleqr/${id}`}/>
+                            <QRCodeComponent url={`${window.location.protocol}//${window.location.host}/handleqr/${id}`}/>
                         }
 
                     </div>
