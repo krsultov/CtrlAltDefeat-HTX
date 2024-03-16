@@ -1,42 +1,49 @@
-import React from 'react';
-import ReportCard from "@/app/(components)/ReportCard";
+"use client"
+import React, {useEffect, useState} from 'react';
+import Link from "next/link";
+import Card from "@/app/(components)/Card";
 
-const getReports = async () => {
-    try {
-        const res = await fetch("http://localhost:3000/api/reports", {
-            cache: "no-store",
-        })
+const Reports = () => {
+    const [events, setEvents] = useState(null);
 
-        return res.json()
-    } catch (e) {
-        console.log("Failed to fetch reports", e);
+    const getEvents = async () => {
+        try {
+            const res = await fetch("/api/reports", {
+                method: "GET",
+                cache: "no-store",
+            })
+
+            const {events} = await res.json()
+
+            return setEvents(events)
+        } catch (e) {
+            console.log("Failed to fetch events", e);
+        }
     }
-}
 
-const Reports = async () => {
+    useEffect(() => {
+        getEvents()
+    }, []);
 
-    const {reports} = await getReports()
+    return events && (
 
-    const uniqueStatuses = [
-        ...new Set(reports?.map(({status}) => status))
-    ]
-
-    return (
         <div className="flex gap-3 lg:flex-wrap p-8">
-            <div className="p-5">
-                <div>
-                    {reports && uniqueStatuses?.map((uniqueStatus, statusIndex) => (
-                        <div key={statusIndex} className="mb-4">
-                            <h2>{uniqueStatus}</h2>
-                            <div className="lg:grid grid-cols-2 xl:grid-cols-4">
-                                {reports.filter((report) => report.category === uniqueStatus).map((filteredReport, _index) => (
-                                    <ReportCard id={_index} key={_index} report={filteredReport}/>
-                                ))}
-                            </div>
 
-                        </div>
-                    ))}
+            <div className="p-5 w-full">
+                <div className="flex items-center w-full gap-5">
+                    <Link href={"/reports/new"}>
+                        <button
+                            className="my-5 border py-2 border-solid border-base-500 rounded-lg px-5 bg-secondary hover:bg-secondaryDark">Create
+                            a Report
+                        </button>
+                    </Link>
+
                 </div>
+
+                <div className="flex flex-wrap justify-evenly gap-8">
+                    {events.map((event, _index) => <Card id={_index} key={_index} event={event}/>)}
+                </div>
+
             </div>
         </div>
     );

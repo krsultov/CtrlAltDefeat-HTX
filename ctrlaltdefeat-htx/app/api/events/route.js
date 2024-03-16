@@ -7,8 +7,10 @@ export async function POST(req) {
     try {
         const body = await req.json()
         const eventData = body.formData
-        const {title,description,location,date,organizer,beforeImage} = eventData
-        const newEvent = new Event({title,description,location,date,organizer,beforeImage,pointValue: 10})
+        const {title,description,location,date,beforeImage} = eventData
+        const organizer = body.formData.organizer
+        const attended = [null]
+        const newEvent = new Event({attended,title,description,location,date,organizer,beforeImage,pointValue: 10})
         await newEvent.save()
         return NextResponse.json({message: "Event Created Successfully"}, {status: 201})
     } catch (e) {

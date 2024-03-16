@@ -10,24 +10,21 @@ import {useRouter} from "next/navigation";
 import {useSelector} from "react-redux";
 
 
-function Form() {
-  const {currentUser} = useSelector(state => state.user)
+function RForm() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentFile, setCurrentFile] = useState(null);
-  const [formData, setFormData] = useState({organizer: currentUser.userContent._id});
+  const [formData, setFormData] = useState([]);
   const router = useRouter()
+  const {currentUser} = useSelector(state => state.user)
 
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setFormData({ ...formData, date: moment(date).format("MMMM Do YYYY h:mm:ss") })
-  };
 
   const {register, handleSubmit, formState: {errors}} = useForm();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
+
 
   function imageToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -57,9 +54,11 @@ function Form() {
     }
   };
 
-  const onSub = async () => {
+  const onSub = async (e) => {
+    setFormData({ ...formData, date: moment().format("MMMM Do YYYY h:mm:ss") })
+    setFormData({...formData, status: "new"})
     try {
-      const res = await fetch('/api/events', {
+      const res = await fetch('/api/reports', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +66,7 @@ function Form() {
         body: JSON.stringify({formData}),
       });
       const data = await res.json();
-      router.push('/events')
+      router.push('/reports')
     } catch (e) {
       throw new Error(e)
     }
@@ -77,7 +76,7 @@ function Form() {
   return (
     <div className="flex justify-center items-center w-full md:max-w-md mx-auto py-20">
       <div className="flex flex-col bg-gray-200/40 justify-between space-y-10 rounded-lg shadow-lg p-8 text-gray-600 border border-cyan-500/50 w-full md:w-11/12">
-        <h1 className="text-3xl font-bold text-center">Create Event</h1>
+        <h1 className="text-3xl font-bold text-center">Create Report</h1>
 
         <form onSubmit={handleSubmit(onSub)} className="space-y-7">
           <div>
@@ -118,25 +117,6 @@ function Form() {
             />
             {errors.location && <p className="text-red-500 text-xs italic">{errors.location.message}</p>}
           </div>
-          <div className="flex flex-col w-full">
-            <label className="block mb-1 font-medium">
-              Date
-            </label>
-            <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              timeCaption="Time"
-              wrapperClassName="w-full"
-              className={`flex w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 `}
-              placeholderText="Select a date"
-              
-            />
-            
-          </div>
             <label className="block mb-1 font-medium">
               Import Image
             </label>
@@ -147,7 +127,7 @@ function Form() {
             className="w-full bg-primaryDark border focus:outline-none focus:ring-emerald-500 focus:border-cyan-500 text-gray-900 text-sm rounded-lg font-bold block p-2.5"
           >
             {" "}
-            Create event
+            Create report
           </button>
         </form>
       </div>
@@ -155,4 +135,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default RForm;

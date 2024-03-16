@@ -1,6 +1,7 @@
 "use client"
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import QRCodeComponent from "@/app/(components)/QRCode";
 
 
 export default function EventDetails({params}) {
@@ -73,6 +74,9 @@ export default function EventDetails({params}) {
                         </div>
                     ))}
                 </div>
+                {
+                    event.organizer === currentUser.userContent._id && <QRCodeComponent url={`${window.location.host}/handleqr/${id}`} />
+                }
 
             </div>
         </div>

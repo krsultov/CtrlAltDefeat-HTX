@@ -1,35 +1,34 @@
 import Report from "@/app/(models)/ReportModel";
 import {NextResponse} from "next/server";
 
-// Fetch report by Id
+// Fetch Event by ID
 export async function GET(req, {params}){
     try{
         const {id} = params
-        const foundReport = await Report.findById({_id: id})
-        return NextResponse.json({foundReport}, {status:200})
+        const foundEvent = await Report.findById({_id: id})
+        return NextResponse.json({foundEvent}, {status:200})
     } catch (e) {
         return NextResponse.json({message: "Error", e}, {status:500})
     }
 }
 
-// Update report by Id
+// Update Event by ID
 export async function PUT(req, {params}){
     try{
         const {id} = params
         const body = await req.json()
-        const reportData = body.formData
+        const update = {
+            ...body
+        }
+        const updatedEvent = await Report.findOneAndUpdate({_id: body._id}, update,)
 
-        const updatedReport = await Report.findByIdAndUpdate(id, {
-            ...reportData
-        })
-
-        return NextResponse.json({message: "Event updated successfully"}, {status:200})
+        return NextResponse.json({message: "Report updated successfully"}, {status:200})
     } catch (e) {
         return NextResponse.json({message: "Error", e}, {status:500})
     }
 }
 
-// Delete report by Id
+// Delete Event by ID
 export async function DELETE(req, {params}){
     try{
         const {id} = params
