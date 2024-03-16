@@ -38,13 +38,7 @@ const Events = () => {
         <div className="flex gap-3 lg:flex-wrap p-8">
 
             <div className="p-5 w-full">
-                <div className="flex w-full justify-between">
-                    <Link href={"/events/new"}>
-                        <button
-                            className="my-5 border py-2 border-solid border-base-500 rounded-lg px-5 bg-secondary hover:bg-secondaryDark">Create
-                            an Event
-                        </button>
-                    </Link>
+                <div className="flex items-center w-full gap-5">
                     <div>
                         <div className="flex gap-3 justify-end">
                             <label className="block mb-1 font-medium">New</label>
@@ -52,11 +46,17 @@ const Events = () => {
                                    id="radioNew"/>
                         </div>
                         <div className="flex gap-3 justify-end">
-                            <label className="block mb-1 font-medium">Old</label>
+                            <label className="block mb-1 font-medium">Archived</label>
                             <input onChange={() => setStatus("old")} checked={status === "old"} type="radio"
                                    id="radioOld"/>
                         </div>
                     </div>
+                    <Link href={"/events/new"}>
+                        <button
+                            className="my-5 border py-2 border-solid border-base-500 rounded-lg px-5 bg-secondary hover:bg-secondaryDark">Create
+                            an Event
+                        </button>
+                    </Link>
 
                 </div>
 
