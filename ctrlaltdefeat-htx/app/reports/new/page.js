@@ -57,7 +57,7 @@ function RForm() {
     setFormData({...formData, organizer: currentUser.userContent._id})
     setFormData({...formData, status: "new"})
     try {
-      const res = await fetch('/api/events', {
+      const res = await fetch('/api/reports', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function RForm() {
         body: JSON.stringify({formData}),
       });
       const data = await res.json();
-      router.push('/events')
+      router.push('/reports')
     } catch (e) {
       throw new Error(e)
     }
