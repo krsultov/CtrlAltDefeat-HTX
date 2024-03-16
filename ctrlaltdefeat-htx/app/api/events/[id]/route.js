@@ -17,11 +17,10 @@ export async function PUT(req, {params}){
     try{
         const {id} = params
         const body = await req.json()
-        const eventData = body.formData
-
-        const updatedEvent = await Event.findByIdAndUpdate(id, {
-            ...eventData
-        })
+        const update = {
+            ...body
+        }
+        const updatedEvent = await Event.findOneAndUpdate({_id: body._id}, update,)
 
         return NextResponse.json({message: "Event updated successfully"}, {status:200})
     } catch (e) {

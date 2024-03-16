@@ -3,6 +3,7 @@ import React from 'react';
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
 import { signOut } from '@/app/(redux)/user/userSlice'
+import logo from "@/public/Logo.png"
 
 import Image from "next/image";
 
@@ -15,7 +16,7 @@ const Navigation = () => {
         <nav className="flex justify-between bg-primary p-4 px-8">
             <div className="flex items-center space-x-4">
                 <Link href="/" className="text-2xl font-bold">
-                    Baywatch
+                    <Image src={logo} width={140} height={30} alt="logo"></Image>
                 </Link>
             </div>
             <div className="flex items-center space-x-4">

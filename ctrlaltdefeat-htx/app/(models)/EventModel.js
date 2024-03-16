@@ -23,7 +23,11 @@ const eventSchema = new Schema(
         status: {
             type: String,
             default: "new"
-        }// New, Archived
+        },// New, Archived
+        attended: {
+            type: Array,
+            default: [],
+        }
     },
     {
         timestamps: true
