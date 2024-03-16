@@ -13,7 +13,10 @@ const eventSchema = new Schema(
         description: String, //Event description
         location: String, //Event location
         date: String, // Event date
-        organizer: String, // ID of organizer
+        organizer: {
+            type: String,
+            default: null
+        }, // ID of organizer
         participants: Array, // All participants
         beforeImage: {
             type: String, // Image before cleaning (URL)
@@ -24,10 +27,7 @@ const eventSchema = new Schema(
             type: String,
             default: "new"
         },// New, Archived
-        attended: {
-            type: Array,
-            default: [],
-        }
+        attended: Array
     },
     {
         timestamps: true

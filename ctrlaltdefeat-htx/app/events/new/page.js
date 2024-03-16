@@ -11,11 +11,12 @@ import {useSelector} from "react-redux";
 
 
 function Form() {
+  const {currentUser} = useSelector(state => state.user)
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentFile, setCurrentFile] = useState(null);
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState({organizer: currentUser.userContent._id});
   const router = useRouter()
-  const {currentUser} = useSelector(state => state.user)
+
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -56,9 +57,7 @@ function Form() {
     }
   };
 
-  const onSub = async (e) => {
-    setFormData({...formData, organizer: currentUser.userContent._id})
-    setFormData({...formData, status: "new"})
+  const onSub = async () => {
     try {
       const res = await fetch('/api/events', {
         method: 'POST',
