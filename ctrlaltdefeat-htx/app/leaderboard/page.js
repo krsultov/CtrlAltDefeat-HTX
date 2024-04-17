@@ -36,16 +36,20 @@ const LeaderBoard = () => {
 
     return (
         <div className='p-3'>
-            <h1 className="text-3xl font-bold mb-5">Leaderboard</h1>
-            <table className="table-auto w-full">
-                <thead>
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Username</th>
-                    <th className="py-3 px-6 text-left">Points</th>
-                </tr>
-                </thead>
-                {currentPageData}
-            </table>
+            <h1 className="text-3xl font-bold mb-5 text-gray-600">Leaderboard</h1>
+            <div className="rounded-lg overflow-hidden">
+                <table className="table-auto w-full rounded-3xl bg-white">
+                    <thead>
+                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th className="py-3 px-6 text-left">Username</th>
+                        <th className="py-3 px-6 text-left">Points</th>
+                    </tr>
+                    </thead>
+                    {currentPageData}
+                </table>
+            </div>
+
+
             <ReactPaginate
                 previousLabel={"← Previous"}
                 nextLabel={"Next →"}
