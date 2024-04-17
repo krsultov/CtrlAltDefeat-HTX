@@ -19,8 +19,8 @@ export async function POST(req) {
 // Fetch Reports
 export async function GET(req) {
     try {
-        const events = await Report.find();
-        return NextResponse.json({events}, {status: 200})
+        const reports = await Report.find();
+        return NextResponse.json({reports}, {status: 200})
     } catch (e) {
         console.log(e)
         return NextResponse.json({message: "Error", e}, {status: 500})

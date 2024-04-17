@@ -35,10 +35,9 @@ const Events = () => {
 
     return events && (
 
-        <div className="flex gap-3 lg:flex-wrap p-8">
-
+        <div>
             <div className="p-5 w-full">
-                <div className="flex items-center w-full gap-5">
+                <div className="flex items-center gap-5">
                     <div>
                         <div className="flex gap-3 justify-end">
                             <label className="block mb-1 font-medium">New</label>
@@ -59,12 +58,14 @@ const Events = () => {
                     </Link>
 
                 </div>
-
-                <div className="flex flex-wrap justify-evenly gap-8">
+                <h1 className="text-3xl font-bold mb-5">Events</h1>
+                <div className="grid sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {filterEvents(status)}
                 </div>
 
+
             </div>
+
         </div>
     );
 }

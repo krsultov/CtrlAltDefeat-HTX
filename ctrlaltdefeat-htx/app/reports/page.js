@@ -2,35 +2,36 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import Card from "@/app/(components)/Card";
+import ReportCard from "@/app/(components)/ReportCard";
 
 const Reports = () => {
-    const [events, setEvents] = useState(null);
+    const [reports, setReports] = useState(null);
 
-    const getEvents = async () => {
+    const getReports = async () => {
         try {
             const res = await fetch("/api/reports", {
                 method: "GET",
                 cache: "no-store",
             })
 
-            const {events} = await res.json()
+            const {reports} = await res.json()
 
-            return setEvents(events)
+            return setReports(reports)
         } catch (e) {
-            console.log("Failed to fetch events", e);
+            console.log("Failed to fetch reports", e);
         }
     }
 
     useEffect(() => {
-        getEvents()
+        getReports()
     }, []);
 
-    return events && (
 
-        <div className="flex gap-3 lg:flex-wrap p-8">
+    return reports && (
 
+        <div>
             <div className="p-5 w-full">
-                <div className="flex items-center w-full gap-5">
+                <div className="flex items-center gap-5">
                     <Link href={"/reports/new"}>
                         <button
                             className="my-5 border py-2 border-solid border-base-500 rounded-lg px-5 bg-secondary hover:bg-secondaryDark">Create
@@ -39,12 +40,14 @@ const Reports = () => {
                     </Link>
 
                 </div>
-
-                <div className="flex flex-wrap justify-evenly gap-8">
-                    {events.map((event, _index) => <Card id={_index} key={_index} event={event}/>)}
+                <h1 className="text-3xl font-bold mb-5">Reports</h1>
+                <div className="grid sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {reports.map((report, _index) => <ReportCard id={_index} key={_index} report={report}/>)}
                 </div>
 
+
             </div>
+
         </div>
     );
 }

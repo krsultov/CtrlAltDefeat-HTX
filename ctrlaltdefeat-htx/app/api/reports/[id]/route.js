@@ -5,8 +5,8 @@ import {NextResponse} from "next/server";
 export async function GET(req, {params}){
     try{
         const {id} = params
-        const foundEvent = await Report.findById({_id: id})
-        return NextResponse.json({foundEvent}, {status:200})
+        const foundReport = await Report.findById({_id: id})
+        return NextResponse.json({foundReport}, {status:200})
     } catch (e) {
         return NextResponse.json({message: "Error", e}, {status:500})
     }
