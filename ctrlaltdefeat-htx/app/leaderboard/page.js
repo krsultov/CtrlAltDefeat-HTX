@@ -35,8 +35,8 @@ const LeaderBoard = () => {
     const pageCount = Math.ceil(users.length / PER_PAGE);
 
     return (
-        <div>
-            <h1>Leaderboard</h1>
+        <div className='p-3'>
+            <h1 className="text-3xl font-bold mb-5">Leaderboard</h1>
             <table className="table-auto w-full">
                 <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -55,7 +55,7 @@ const LeaderBoard = () => {
                 previousLinkClassName={" text-gray-600 pagination__link font-bold"}
                 nextLinkClassName={"text-gray-600 pagination__link font-bold"}
                 disabledClassName={"text-gray-400"}
-                activeClassName={" text-gray-800 font-bold bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center"}
+                activeClassName={" text-gray-800 font-bold bg-secondary rounded-full w-8 h-8 flex items-center justify-center"}
             />
         </div>
     );

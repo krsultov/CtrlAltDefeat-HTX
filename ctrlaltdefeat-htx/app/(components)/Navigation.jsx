@@ -26,6 +26,9 @@ const Navigation = () => {
                 <Link href="/reports">
                     Reports
                 </Link>
+                <Link href="/leaderboard">
+                    Leaderboard
+                </Link>
                 <Link href={"/profile"}>
                     {currentUser ? (
                         <div className="flex items-center space-x-2 ml-5">
