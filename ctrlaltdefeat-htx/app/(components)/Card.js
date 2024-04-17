@@ -8,6 +8,7 @@ const Card = ({event}) => {
         return description.substring(0, maxLength) + "...";
     };
 
+
     return (
         <div className="w-[320px] bg-white rounded overflow-hidden shadow-lg mx-auto">
             <div className="flex flex-col justify-between h-full">
