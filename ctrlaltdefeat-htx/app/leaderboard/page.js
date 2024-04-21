@@ -8,7 +8,7 @@ const LeaderBoard = () => {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const res = await fetch('/api/users');
+            const res = await fetch('/api/users',{method: "GET", cache: "no-store", headers: {'Content-Type': 'application/json'}});
             const data = await res.json();
             const sortedUsers = data.sort((a, b) => b.points - a.points);
             setUsers(sortedUsers);
